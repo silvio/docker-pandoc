@@ -58,6 +58,13 @@ if [ "$1" == "--help" ]; then
 	echo "#   \${dockerblah} exec bash"
 	echo "#   \${dockerblah} server  -- pdf a.md b.md c.md"
 	echo ""
+	if [ -e /installed-pandocfilters.txt ]; then
+		echo "# This filters are installed on the pandoc image:"
+		for FILTER in $(< /installed-pandocfilters.txt)
+		do
+			echo "#   ${FILTER}"
+		done
+	fi
 fi
 
 /root/.cabal/bin/pandoc $*

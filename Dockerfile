@@ -37,3 +37,12 @@ CMD ["--help"]
 ADD adds/start.sh /start.sh
 ADD readme.md /readme.docker.md
 RUN chmod 777 /start.sh
+
+RUN export DEBIAN_FRONTEND=noninteractive \
+    && git clone https://github.com/jgm/pandocfilters.git /pandocfilters \
+    && cd /pandocfilters \
+    && python setup.py install \
+    && cp examples/*.py /usr/bin \
+    && ls examples/*.py > /installed-pandocfilters.txt \
+    && rm -rf /pandocfilters \
+    && apt-get install -y abcm2ps python-pygraphviz graphviz imagemagick
