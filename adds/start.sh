@@ -48,7 +48,7 @@ if [ "${1}" == "server" ]; then
 	done
 fi
 
-if [ "$1" == "--help" ]; then
+if [ "$1" = "--help" -o "$1" = "-h" ]; then
 	echo ""
 	echo "# You can execute this docker container with 'exec' to start other programs than pandoc,"
 	echo "# or with 'server <pandocoptions> -- <suffix> <file1> [ ... <fileN> ]' to watch the "
