@@ -19,7 +19,8 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && apt-get install -y haskell-platform texlive-latex-base \
 			  texlive-xetex latex-xcolor texlive-math-extra \
 			  texlive-latex-extra texlive-fonts-extra \
-			  texlive-bibtex-extra curl wget git fontconfig make \
+			  texlive-bibtex-extra texlive-lang-all \
+			  curl wget git fontconfig make \
 			  inotify-tools \
     && apt-get clean -y
 
