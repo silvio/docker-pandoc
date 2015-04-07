@@ -1,8 +1,3 @@
----
-header-includes:
-    - \usepackage[a4paper]{geometry}
----
-
 # Introduction
 
 [Pandoc] in a container and NO Haskel on your host!
