@@ -21,6 +21,18 @@ Retrieve the docker image via `docker pull` and create an alias in your
 % alias pandoc='docker run -ti -v ${PWD}:/source --rm silviof/docker-pandoc'
 ```
 
+# Environmentvariables
+
+PUID
+
+: User ID of generated file
+
+PGID
+
+: Group ID of generated files
+
+Use this via `-e` option for docker eg.: `-e PUID=${UID} -e PGID=${GID}`.
+
 # Modes
 
 You can use this Dockerimage as an alias within your shell or as a inotify

@@ -2,6 +2,9 @@
 
 echo "commandline: $*"
 
+PUID="${PUID:-0}"
+PGID="${PGID:-0}"
+
 if [ "$1" == "exec" ]; then
 	shift
 	$*
@@ -38,6 +41,7 @@ if [ "${1}" == "server" ]; then
 				COUNTER=$(( ++COUNTER ))
 				(
 					pandoc ${PANDOCOPTIONS} ${CHANGEDFILE} -o ${CHANGEDFILE}.${SUFFIX}
+					chown ${PUID}:${PGID} ${CHANGEDFILE}.${SUFFIX}
 					printf "(%4d) :: %30s -> %-30s (\$?: $?)\n" ${COUNTER} ${CHANGEDFILE} ${CHANGEDFILE}.${SUFFIX}
 				) &
 				;;
@@ -68,3 +72,6 @@ if [ "$1" = "--help" -o "$1" = "-h" ]; then
 fi
 
 pandoc $*
+
+FILENAME=$(echo $* | sed 's/.*\(-o\ \|--output=|--output\ \)\([[:graph:]]*\).*/\2/')
+[[ -n "${FILENAME}" ]] && chown ${PUID}:${PGID} ${FILENAME}
