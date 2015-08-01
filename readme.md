@@ -18,7 +18,7 @@ Retrieve the docker image via `docker pull` and create an alias in your
 ```
 % docker pull silviof/docker-pandoc
   [...]
-% alias pandoc='docker run -ti -v ${PWD}:/source --rm silviof/docker-pandoc'
+% alias pandoc='docker run -ti --rm -v ${PWD}:/source --rm silviof/docker-pandoc'
 ```
 
 # Environmentvariables
