@@ -27,13 +27,12 @@ if [ "${1}" == "server" ]; then
 
 	SUFFIX="${1}"
 	shift
-	FILES=${*}
 
 	COUNTER=0
 
 	while true
 	do
-		CHANGEDFILE=$(inotifywait -q --format '%w' -e 'close_write' ${FILES})
+		CHANGEDFILE=$(inotifywait -q --format '%w' -e 'close_write' ${*})
 		OUT=$?
 
 		case "${OUT}" in
