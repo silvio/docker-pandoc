@@ -1,13 +1,11 @@
 # this dockerfile is an import from https://registry.hub.docker.com/u/jagregory/pandoc/dockerfile/
 # I have done some changes
 
-FROM ubuntu
+FROM debian:jessie
 
 #MAINTAINER James Gregory <james@jagregory.com>
 MAINTAINER Silvio Fricke <silvio.fricke@gmail.com>
 
-RUN dpkg-divert --local --rename --add /sbin/initctl \
-    && ln -sf /bin/true /sbin/initctl
 RUN ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 
 # install haskell
