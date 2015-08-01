@@ -37,7 +37,7 @@ if [ "${1}" == "server" ]; then
 			"0")
 				COUNTER=$(( ++COUNTER ))
 				(
-					/root/.cabal/bin/pandoc ${PANDOCOPTIONS} ${CHANGEDFILE} -o ${CHANGEDFILE}.${SUFFIX}
+					pandoc ${PANDOCOPTIONS} ${CHANGEDFILE} -o ${CHANGEDFILE}.${SUFFIX}
 					printf "(%4d) :: %30s -> %-30s (\$?: $?)\n" ${COUNTER} ${CHANGEDFILE} ${CHANGEDFILE}.${SUFFIX}
 				) &
 				;;
@@ -67,4 +67,4 @@ if [ "$1" = "--help" -o "$1" = "-h" ]; then
 	fi
 fi
 
-/root/.cabal/bin/pandoc $*
+pandoc $*

@@ -35,8 +35,10 @@ RUN export DEBIAN_FRONTEND=noninteractive \
               wget \
     && apt-get clean -y
 
-# install pandoc
-RUN cabal update && cabal install pandoc
+ADD https://github.com/jgm/pandoc/releases/download/1.15.0.6/pandoc-1.15.0.6-1-amd64.deb /pandoc.deb
+RUN export DEBIAN_FRONTEND=noninteractive \
+    && dpkg -i /pandoc.deb \
+    && rm /pandoc.deb
 
 RUN mkdir -p /source
 WORKDIR /source
