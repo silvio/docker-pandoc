@@ -40,6 +40,13 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && dpkg -i /pandoc.deb \
     && rm /pandoc.deb
 
+RUN git clone https://github.com/jgm/pandocfilters.git /pandocfilters \
+    && cd /pandocfilters \
+    && python setup.py install \
+    && cp examples/*.py /usr/bin \
+    && ls examples/*.py > /installed-pandocfilters.txt \
+    && rm -rf /pandocfilters
+
 RUN mkdir -p /source
 WORKDIR /source
 
@@ -51,11 +58,3 @@ CMD ["--help"]
 ADD adds/start.sh /start.sh
 ADD readme.md /readme.docker.md
 RUN chmod 777 /start.sh
-
-RUN export DEBIAN_FRONTEND=noninteractive \
-    && git clone https://github.com/jgm/pandocfilters.git /pandocfilters \
-    && cd /pandocfilters \
-    && python setup.py install \
-    && cp examples/*.py /usr/bin \
-    && ls examples/*.py > /installed-pandocfilters.txt \
-    && rm -rf /pandocfilters
