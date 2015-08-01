@@ -14,12 +14,25 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && apt-get upgrade -y
 
 RUN export DEBIAN_FRONTEND=noninteractive \
-    && apt-get install -y haskell-platform texlive-latex-base \
-			  texlive-xetex latex-xcolor texlive-math-extra \
-			  texlive-latex-extra texlive-fonts-extra \
-			  texlive-bibtex-extra texlive-lang-all \
-			  curl wget git fontconfig make \
-			  inotify-tools \
+    && apt-get install -y \
+              abcm2ps \
+              curl \
+              fontconfig \
+              git \
+              graphviz \
+              imagemagick \
+              inotify-tools \
+              latex-xcolor \
+              make \
+              python-pygraphviz \
+              texlive-bibtex-extra \
+              texlive-fonts-extra \
+              texlive-lang-all \
+              texlive-latex-base \
+              texlive-latex-extra \
+              texlive-math-extra \
+              texlive-xetex \
+              wget \
     && apt-get clean -y
 
 # install pandoc
@@ -43,5 +56,4 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && python setup.py install \
     && cp examples/*.py /usr/bin \
     && ls examples/*.py > /installed-pandocfilters.txt \
-    && rm -rf /pandocfilters \
-    && apt-get install -y abcm2ps python-pygraphviz graphviz imagemagick
+    && rm -rf /pandocfilters
