@@ -41,7 +41,7 @@ you save your source file.
 
 ```
 SYNOPSIS:
-       pandoc server [PANOPTION] -- <FORMAT> <FILE>...
+       pandoc server [PANOPTION] -- [SERVEROPTION] <FORMAT> <FILE>...
 
 DESCRIPTION:
        inotify based listining on FILEs and convert at save event of this
@@ -50,6 +50,13 @@ DESCRIPTION:
 
        PANOPTION
               optional, normal pandoc options. see "pandoc --help"
+
+       SERVEROPTION
+              optional, option for the server process. Following options are
+              supported:
+
+              --output-folder=<folder>          Set destiny folder for output
+                                                files
 
        FORMAT
               convert format, see supported formats with "pandoc -v"
@@ -61,9 +68,9 @@ EXAMPLES:
 
        $ ls
        x.md y.md
-       $ pandoc server -- pdf x.md y.md
-       (1) :: x.md -> x.md.pdf ($?: 0)
-       (2) :: y.md -> y.md.pdf ($?: 0)
+       $ pandoc server -- --output-folder=out pdf x.md y.md
+       (   1) :: x.md -> out/x.md.pdf ($?: 0)
+       (   2) :: y.md -> out/y.md.pdf ($?: 0)
 
 
 ```
