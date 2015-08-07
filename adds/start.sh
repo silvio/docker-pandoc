@@ -28,7 +28,6 @@ if [ "${1}" == "server" ]; then
 
 	# Options after '--' for server settings
 	OUTFOLDER="."
-	echo "b-args: ${*}"
 	for arg in ${*}
 	do
 		case ${arg} in
@@ -41,8 +40,6 @@ if [ "${1}" == "server" ]; then
 				;;
 		esac
 	done
-
-	echo "a-args: ${*}"
 
 	SUFFIX="${1}"
 	shift
