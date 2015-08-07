@@ -15,6 +15,7 @@ fi
 if [ "${1}" == "server" ]; then
 	shift
 
+	# Options before '--' for pandoc
 	PANDOCOPTIONS=""
 	for arg in ${*}
 	do
@@ -24,6 +25,24 @@ if [ "${1}" == "server" ]; then
 	done
 
 	shift
+
+	# Options after '--' for server settings
+	OUTFOLDER="."
+	echo "b-args: ${*}"
+	for arg in ${*}
+	do
+		case ${arg} in
+			(--output-folder=*)
+				OUTFOLDER=$(echo $arg | cut -d "=" -f 2)
+				shift
+				;;
+			(*)
+				break
+				;;
+		esac
+	done
+
+	echo "a-args: ${*}"
 
 	SUFFIX="${1}"
 	shift
@@ -39,11 +58,11 @@ if [ "${1}" == "server" ]; then
 			"0")
 				COUNTER=$(( ++COUNTER ))
 				(
-					pandoc ${PANDOCOPTIONS} ${CHANGEDFILE} -o ${CHANGEDFILE}.${SUFFIX}
-					if [ -e ${CHANGEDFILE}.${SUFFIX} ]; then
-						chown ${PUID}:${PGID} ${CHANGEDFILE}.${SUFFIX}
+					pandoc ${PANDOCOPTIONS} ${CHANGEDFILE} -o ${OUTFOLDER}/${CHANGEDFILE}.${SUFFIX}
+					if [ -e ${OUTFOLDER}/${CHANGEDFILE}.${SUFFIX} ]; then
+						chown ${PUID}:${PGID} ${OUTFOLDER}/${CHANGEDFILE}.${SUFFIX}
 					fi
-					printf "(%4d) :: %30s -> %-30s (\$?: $?)\n" ${COUNTER} ${CHANGEDFILE} ${CHANGEDFILE}.${SUFFIX}
+					printf "(%4d) :: %30s -> %-30s (\$?: $?)\n" ${COUNTER} ${CHANGEDFILE} ${OUTFOLDER}/${CHANGEDFILE}.${SUFFIX}
 				) &
 				;;
 			*)
@@ -56,12 +75,16 @@ fi
 if [ "$1" = "--help" -o "$1" = "-h" ]; then
 	echo ""
 	echo "# You can execute this docker container with 'exec' to start other programs than pandoc,"
-	echo "# or with 'server <pandocoptions> -- <suffix> <file1> [ ... <fileN> ]' to watch the "
+	echo "# or with 'server [pandocoptions] -- [serveroptions] <suffix> <file1> [ ... <fileN> ]' to watch the "
 	echo "# <fileN>'s of changes and generate the output <fileN>.suffix"
+	echo ""
+	echo "# serveroptions:"
+	echo "#   --output-folder=<folder>  outputfile should placed in <folder>"
 	echo ""
 	echo "# example:"
 	echo "#   \${dockerblah} exec bash"
 	echo "#   \${dockerblah} server  -- pdf a.md b.md c.md"
+	echo "#   \${dockerblah} server  -- --output-folder=output pdf a.md b.md c.md"
 	echo ""
 	if [ -e /installed-pandocfilters.txt ]; then
 		echo "# This filters are installed on the pandoc image:"
