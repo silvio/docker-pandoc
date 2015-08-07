@@ -40,7 +40,9 @@ if [ "${1}" == "server" ]; then
 				COUNTER=$(( ++COUNTER ))
 				(
 					pandoc ${PANDOCOPTIONS} ${CHANGEDFILE} -o ${CHANGEDFILE}.${SUFFIX}
-					chown ${PUID}:${PGID} ${CHANGEDFILE}.${SUFFIX}
+					if [ -e ${CHANGEDFILE}.${SUFFIX} ]; then
+						chown ${PUID}:${PGID} ${CHANGEDFILE}.${SUFFIX}
+					fi
 					printf "(%4d) :: %30s -> %-30s (\$?: $?)\n" ${COUNTER} ${CHANGEDFILE} ${CHANGEDFILE}.${SUFFIX}
 				) &
 				;;
@@ -73,4 +75,6 @@ fi
 pandoc $*
 
 FILENAME=$(echo $* | sed 's/.*\(-o\ \|--output=|--output\ \)\([[:graph:]]*\).*/\2/')
-[[ -n "${FILENAME}" ]] && chown ${PUID}:${PGID} ${FILENAME}
+if [ -n "${FILENAME}" ] && [ -e "${FILENAME}" ]; then
+	chown ${PUID}:${PGID} ${FILENAME}
+fi
