@@ -8,7 +8,7 @@ Please read the [pandoc user guide] and for specially for markdown the
 # Installation
 
 Retrieve the docker image via `docker pull` and create an alias in your
-`.${SHELL}rc`.
+`.${SHELL}rc` or put a shell script somewhere.
 
 ```
 % docker pull silviof/docker-pandoc
