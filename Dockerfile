@@ -24,6 +24,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
               inotify-tools \
               latex-xcolor \
               make \
+              python3 \
               python-pygraphviz \
               texlive-bibtex-extra \
               texlive-fonts-extra \
@@ -43,6 +44,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
 RUN git clone https://github.com/jgm/pandocfilters.git /pandocfilters \
     && cd /pandocfilters \
     && python setup.py install \
+    && python3 setup.py install \
     && cp examples/*.py /usr/bin \
     && ls examples/*.py > /installed-pandocfilters.txt \
     && rm -rf /pandocfilters
