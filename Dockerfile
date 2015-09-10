@@ -49,6 +49,8 @@ RUN git clone https://github.com/jgm/pandocfilters.git /pandocfilters \
     && ls examples/*.py > /installed-pandocfilters.txt \
     && rm -rf /pandocfilters
 
+RUN sed -i 's#examples#/usr/bin#' /installed-pandocfilters.txt
+
 RUN mkdir -p /source
 WORKDIR /source
 
