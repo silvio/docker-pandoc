@@ -49,6 +49,9 @@ RUN git clone https://github.com/jgm/pandocfilters.git /pandocfilters \
     && ls examples/*.py > /installed-pandocfilters.txt \
     && rm -rf /pandocfilters
 
+ADD https://raw.githubusercontent.com/silvio/pandocfilters/sfr/git-diff-filter/examples/git-diff.py /usr/bin/git-diff.py
+RUN echo "examples/git-diff.py" >> /installed-pandocfilters.txt
+
 RUN sed -i 's#examples#/usr/bin#' /installed-pandocfilters.txt
 
 RUN mkdir -p /source
