@@ -8,6 +8,10 @@ MAINTAINER Silvio Fricke <silvio.fricke@gmail.com>
 
 RUN ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 
+RUN echo "deb http://httpredir.debian.org/debian jessie contrib" > /etc/apt/sources.list.d/contrib.list ;\
+    echo "deb http://httpredir.debian.org/debian jessie-updates contrib" >> /etc/apt/sources.list.d/contrib.list ;\
+    echo "deb http://security.debian.org jessie/updates contrib" >> /etc/apt/sources.list.d/contrib.list
+
 # install haskell
 RUN export DEBIAN_FRONTEND=noninteractive \
     && apt-get update -y \
@@ -33,6 +37,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
               texlive-latex-extra \
               texlive-math-extra \
               texlive-xetex \
+              ttf-mscorefonts-installer \
               wget \
     && apt-get clean -y
 
