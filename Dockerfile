@@ -15,9 +15,7 @@ RUN echo "deb http://httpredir.debian.org/debian jessie contrib" > /etc/apt/sour
 # install haskell
 RUN export DEBIAN_FRONTEND=noninteractive \
     && apt-get update -y \
-    && apt-get upgrade -y
-
-RUN export DEBIAN_FRONTEND=noninteractive \
+    && apt-get upgrade -y \
     && apt-get install -y \
               abcm2ps \
               curl \
