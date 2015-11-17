@@ -37,7 +37,8 @@ RUN export DEBIAN_FRONTEND=noninteractive \
               texlive-xetex \
               ttf-mscorefonts-installer \
               wget \
-    && apt-get clean -y
+    && apt-get clean -y \
+    && rm -rf /var/lib/apt/lists/*
 
 ENV PKGREL 1
 ENV VERSION 1.15.0.6
