@@ -40,8 +40,8 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*
 
-ENV PKGREL 2
-ENV VERSION 1.16
+ENV PKGREL 1
+ENV VERSION 1.16.0.2
 ADD https://github.com/jgm/pandoc/releases/download/${VERSION}/pandoc-${VERSION}-${PKGREL}-amd64.deb /pandoc.deb
 RUN export DEBIAN_FRONTEND=noninteractive \
     && dpkg -i /pandoc.deb \
