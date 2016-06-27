@@ -27,8 +27,8 @@ RUN export DEBIAN_FRONTEND=noninteractive \
               inotify-tools \
               latex-xcolor \
               make \
-              python3 \
               python-pygraphviz \
+              python3 \
               texlive-bibtex-extra \
               texlive-fonts-extra \
               texlive-lang-all \
