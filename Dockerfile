@@ -18,9 +18,11 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && apt-get upgrade -y \
     && apt-get install -y \
               abcm2ps \
+              ca-certificates \
               cm-super \
               curl \
               fontconfig \
+              fonts-liberation \
               git \
               graphviz \
               imagemagick \
@@ -36,7 +38,6 @@ RUN export DEBIAN_FRONTEND=noninteractive \
               texlive-latex-extra \
               texlive-math-extra \
               texlive-xetex \
-              ttf-mscorefonts-installer \
               wget \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*
