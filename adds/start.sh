@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-echo "commandline: $*"
-
 PUID="${PUID:-0}"
 PGID="${PGID:-0}"
 
