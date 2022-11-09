@@ -1,16 +1,16 @@
 # this dockerfile is an import from https://registry.hub.docker.com/u/jagregory/pandoc/dockerfile/
 # I have done some changes
 
-FROM debian:jessie
+FROM debian:bullseye
 
 #MAINTAINER James Gregory <james@jagregory.com>
 MAINTAINER Silvio Fricke <silvio.fricke@gmail.com>
 
 RUN ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 
-RUN echo "deb http://httpredir.debian.org/debian jessie contrib" > /etc/apt/sources.list.d/contrib.list ;\
-    echo "deb http://httpredir.debian.org/debian jessie-updates contrib" >> /etc/apt/sources.list.d/contrib.list ;\
-    echo "deb http://security.debian.org jessie/updates contrib" >> /etc/apt/sources.list.d/contrib.list
+RUN echo "deb http://httpredir.debian.org/debian bullseye contrib" > /etc/apt/sources.list.d/contrib.list ;\
+    echo "deb http://httpredir.debian.org/debian bullseye-updates contrib" >> /etc/apt/sources.list.d/contrib.list ;\
+    echo "deb http://security.debian.org/debian-security bullseye-security main contrib non-free" >> /etc/apt/sources.list.d/contrib.list
 
 # install haskell
 RUN export DEBIAN_FRONTEND=noninteractive \
@@ -27,16 +27,16 @@ RUN export DEBIAN_FRONTEND=noninteractive \
               graphviz \
               imagemagick \
               inotify-tools \
-              latex-xcolor \
               make \
-              python-pygraphviz \
+              python3-pygraphviz \
+              python3-setuptools \
               python3 \
               texlive-bibtex-extra \
               texlive-fonts-extra \
               texlive-lang-all \
               texlive-latex-base \
               texlive-latex-extra \
-              texlive-math-extra \
+              texlive-science \
               texlive-xetex \
               wget \
     && apt-get clean -y \
@@ -51,7 +51,6 @@ RUN export DEBIAN_FRONTEND=noninteractive \
 
 RUN git clone https://github.com/jgm/pandocfilters.git /pandocfilters \
     && cd /pandocfilters \
-    && python setup.py install \
     && python3 setup.py install \
     && cp examples/*.py /usr/bin \
     && ls examples/*.py > /installed-pandocfilters.txt \
