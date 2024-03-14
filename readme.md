@@ -13,20 +13,9 @@ Retrieve the docker image via `docker pull` and create an alias in your
 ```
 % docker pull silviof/docker-pandoc
   [...]
-% alias pandoc='docker run -ti --rm -v ${PWD}:/source --rm silviof/docker-pandoc'
+% alias pandoc='docker run -ti --rm -v ${PWD}:/source -u"$(uid -u):$(uid -g)" --rm silviof/docker-pandoc'
 ```
 
-# Environmentvariables
-
-PUID
-
-: User ID of generated file
-
-PGID
-
-: Group ID of generated files
-
-Use this via `-e` option for docker eg.: `-e PUID=${UID} -e PGID=${GID}`.
 
 # Modes
 
@@ -73,19 +62,6 @@ EXAMPLES:
        (   2) :: y.md -> out/y.md.pdf ($?: 0)
 
 
-```
-
-## Alias
-
-Simple use it like any other command.
-
-```
-% pandoc -v
-pandoc 1.13.2
-Compiled with texmath 0.8.0.1, highlighting-kate 0.5.11.1.
-Syntax highlighting is supported for the following languages:
-    abc, actionscript, ada, agda, apache, asn1, asp, awk, bash, bibtex, boo, c,
-[...]
 ```
 
 <!-- links -->

@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-PUID="${PUID:-0}"
-PGID="${PGID:-0}"
-
 if [ "$1" == "exec" ]; then
 	shift
 	$*
@@ -54,9 +51,6 @@ if [ "${1}" == "server" ]; then
 				COUNTER=$(( ++COUNTER ))
 				(
 					pandoc ${PANDOCOPTIONS} ${CHANGEDFILE} -o ${OUTFOLDER}/${CHANGEDFILE}.${SUFFIX}
-					if [ -e ${OUTFOLDER}/${CHANGEDFILE}.${SUFFIX} ]; then
-						chown ${PUID}:${PGID} ${OUTFOLDER}/${CHANGEDFILE}.${SUFFIX}
-					fi
 					printf "(%4d) :: %30s -> %-30s (\$?: $?)\n" ${COUNTER} ${CHANGEDFILE} ${OUTFOLDER}/${CHANGEDFILE}.${SUFFIX}
 				) &
 				;;
@@ -90,9 +84,5 @@ if [ "$1" = "--help" -o "$1" = "-h" ]; then
 	fi
 fi
 
+# shellcheck disable=SC2048,SC2086
 pandoc $*
-
-FILENAME=$(echo $* | sed 's/.*\(-o\ \|--output=|--output\ \)\([[:graph:]]*\).*/\2/')
-if [ -n "${FILENAME}" ] && [ -e "${FILENAME}" ]; then
-	chown ${PUID}:${PGID} ${FILENAME}
-fi
